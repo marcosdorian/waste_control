@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Expenses Control</title>
+</head>
+
+<body>
+    <form>
+        <div>
+            <div><label>Email</label></div>
+            <input type="email" name="email" id="email" onchange="validateFields()" placeholder="your@email.com">
+        </div>
+        <div>
+            <div><label>Senha</label></div>
+            <input type="password" name="password" id="password" onchange="validateFields()" placeholder="Password">
+        </div>
+        <div>
+            <button type="button" class="clear" id="recover-password-button" disabled="true">Recover Password</button>
+        </div>
+        <div>
+            <button type="button" class="solid" id="login-button" disabled="true">Enter</button>
+        </div>
+        <div>
+            <button type="button" class="outline">Register</button>
+        </div>
+    </form>
+</body>
+
+<link rel="stylesheet" href="index.css">
+
+<script src="index.js"></script>
+
+</html>

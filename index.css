@@ -1,0 +1,56 @@
+h1 {
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    background: rgb(45, 211, 111);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+form {
+    width: 300px;
+}
+
+input {
+    border: none;
+}
+
+input, button {
+    padding: 10px;
+    margin-bottom: 10px;
+    width: -webkit-fill-available;
+}
+
+button {
+    cursor: pointer;
+}
+
+.clear {
+    background: transparent;
+    border: none;
+    color: white;
+}
+
+button:active {
+    opacity: 1;
+}
+
+button[disabled] {
+    opacity: 0.7;
+}
+
+.solid {
+    background: white;
+    border: none;
+    color: rgb(45, 211, 111);
+}
+
+.outline {
+    background: transparent;
+    color: white;
+    border: 1px solid white;
+}

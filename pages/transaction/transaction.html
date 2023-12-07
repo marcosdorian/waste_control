@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction - Expenses Control</title>
+</head>
+
+<body>
+    <header>
+        <button type="button" class="clear" onclick="logout()">Log out</button>
+    </header>
+    <main class="centralize">
+        <form>
+            <div class="form-field">
+                <div><label>Transaction</label></div>
+                <input type="radio" name="type" checked id="expense"> <label for="expense">Expense</label>
+                <input type="radio" name="type" id="income"> <label for="income">Income</label>
+            </div>
+            <div class="form-field">
+                <div><label>Date of Transaction</label></div>
+                <input type="date">
+            </div>
+            <div class="form-field">
+                <div><label>Currency</label></div>
+                <select>
+                    <option selected>Dolar</option>
+                    <option>Euro</option>
+                    <option>Real</option>
+                </select>
+            </div>
+            <div class="form-field">
+                <div><label>Value</label></div>
+                <input type="number">
+            </div>
+            <div class="form-field">
+                <div><label>Type of Transaction</label></div>
+                <select>
+                    <option>-- Select one Type of Transaction --</option>
+                    <option>Supermarket</option>
+                    <option>Transportation</option>
+                    <option>Accomodation</option>
+                    <option>Food</option>
+                    <option>Salary</option>
+                    <option>Entertainment</option>
+                    <option>Others</option>
+                </select>
+            </div>
+            <div class="form-field">
+                <div><label>Description</label></div>
+                <input type="text">
+            </div>
+            <button type="button" class="solid">Save</button>
+            <button type="button" class="clear">Cancel</button>
+        </form>
+    </main>
+</body>
+
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="transaction.css">
+
+<script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore-compat.js"></script>
+<script src="../../firebase-init.js"></script>
+<script src="../../auth-guard.js"></script>
+<script src="../../loading.js"></script>
+<script src="transaction.js"></script>
+
+</html>

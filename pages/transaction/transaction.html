@@ -15,30 +15,39 @@
     <main class="centralize">
         <form>
             <div class="form-field">
-                <div><label>Transaction</label></div>
+                <div><label>Transaction *</label></div>
                 <input type="radio" name="type" checked id="expense"> <label for="expense">Expense</label>
                 <input type="radio" name="type" id="income"> <label for="income">Income</label>
             </div>
             <div class="form-field">
-                <div><label>Date of Transaction</label></div>
-                <input type="date">
+                <div><label>Date of Transaction *</label></div>
+                <input type="date" onchange="onChangeDate()" id="date">
+                <div class="error" id="date-required-error">
+                    Date is mandatory/invalid
+                </div>
             </div>
             <div class="form-field">
-                <div><label>Currency</label></div>
-                <select>
-                    <option selected>Dolar</option>
-                    <option>Euro</option>
-                    <option>Real</option>
+                <div><label>Currency *</label></div>
+                <select id="currency">
+                    <option value="USD" selected>Dolar</option>
+                    <option value="EUR">Euro</option>
+                    <option value="BRL">Real</option>
                 </select>
             </div>
             <div class="form-field">
-                <div><label>Value</label></div>
-                <input type="number">
+                <div><label>Value *</label></div>
+                <input type="number" onchange="onChangeValue()" id="value">
+                <div class="error" id="value-required-error">
+                    Value is mandatory
+                </div>
+                <div class="error" id="value-less-or-equal-to-zero-error">
+                    Value must be higher than 0
+                </div>
             </div>
             <div class="form-field">
-                <div><label>Type of Transaction</label></div>
-                <select>
-                    <option>-- Select one Type of Transaction --</option>
+                <div><label>Type of Transaction *</label></div>
+                <select onchange="onChangeTransactionType()" id="transaction-type">
+                    <option value="">-- Select one Type of Transaction --</option>
                     <option>Supermarket</option>
                     <option>Transportation</option>
                     <option>Accomodation</option>
@@ -47,12 +56,15 @@
                     <option>Entertainment</option>
                     <option>Others</option>
                 </select>
+                <div class="error" id="transaction-type-required-error">
+                    Transaction Type is mandatory
+                </div>
             </div>
             <div class="form-field">
                 <div><label>Description</label></div>
-                <input type="text">
+                <input type="text" id="description">
             </div>
-            <button type="button" class="solid">Save</button>
+            <button type="button" class="solid" disabled id="save-button" onclick="saveTransaction()">Save</button>
             <button type="button" class="clear">Cancel</button>
         </form>
     </main>

@@ -30,7 +30,10 @@ function findTransactions(user) {
         .get()
         .then(snapshot => {
             hideLoading();
-            const transactions = snapshot.docs.map(doc => doc.data());
+            const transactions = snapshot.docs.map(doc => ({
+                ...doc.data(),
+                uid: doc.id
+            }));
             addTransactionsToScreen(transactions);
       })
       .catch(error => {
@@ -48,6 +51,10 @@ function addTransactionsToScreen(transactions) {
         const li = document.createElement('li');
         // adding type (if it's income or expense)
         li.classList.add(transaction.type);
+        // to update an item
+        li.addEventListener('click', () => {
+            window.location.href = "../transaction/transaction.html?uid=" + transaction.uid;
+        })
 
         const date = document.createElement('p');
         date.innerHTML = formatDate(transaction.date);

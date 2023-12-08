@@ -4,7 +4,9 @@ body {
 
 ol {
     list-style-type: none;
-    padding: 0;
+    margin: auto;
+    text-align: center;
+    max-width: 500px;
 }
 
 ol li {
@@ -28,4 +30,33 @@ ol li.income {
 
 p {
     margin: 4px 0;
+}
+
+ol li:hover .delete-button {
+    display: block;
+}
+
+.edit-button {
+    background-color: transparent;
+    border: none; 
+    position: initial;
+    width: 25px;
+    height: 2px;
+}
+
+.edit-button:hover {
+    opacity: 0.5;
+}
+
+.delete-button {
+    background-color: transparent;
+    border: none; 
+    float: right;
+    width: 25px;
+    height: 2px;
+    display: none;
+}
+
+.delete-button:hover {
+    opacity: 0.5;
 }

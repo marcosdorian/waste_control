@@ -21,19 +21,9 @@ function newTransaction() {
 function findTransactions(user) {
     showLoading();
     // it gets the data from the firestore (database from firebase)
-    firebase.firestore()
-    // I created the collection transactions on the site of firebase
-        .collection('transactions')
-        .where('user.uid', '==', user.uid)
-        // order the list by date from the most recent to the oldest
-        .orderBy('date', 'desc')
-        .get()
-        .then(snapshot => {
+    transactionService.findByUser(user)
+        .then(transactions=> {
             hideLoading();
-            const transactions = snapshot.docs.map(doc => ({
-                ...doc.data(),
-                uid: doc.id
-            }));
             addTransactionsToScreen(transactions);
       })
       .catch(error => {
@@ -48,34 +38,78 @@ function addTransactionsToScreen(transactions) {
     const orderedList = document.getElementById('transactions');
 
     transactions.forEach(transaction => {
-        const li = document.createElement('li');
-        // adding type (if it's income or expense)
-        li.classList.add(transaction.type);
-        // to update an item
-        li.addEventListener('click', () => {
-            window.location.href = "../transaction/transaction.html?uid=" + transaction.uid;
-        })
+        const li = createTransactionListItem(transaction);
 
-        const date = document.createElement('p');
-        date.innerHTML = formatDate(transaction.date);
-        li.appendChild(date);
+        li.appendChild(createEditButton(transaction));
+        li.appendChild(createDeleteButton(transaction));
 
-        const money = document.createElement('p');
-        money.innerHTML = formatMoney(transaction.money);
-        li.appendChild(money);
-
-        const type = document.createElement('p');
-        type.innerHTML = transaction.transactionType;
-        li.appendChild(type);
+        li.appendChild(createParagraph(formatDate(transaction.date)));
+        li.appendChild(createParagraph(formatMoney(transaction.money)));
+        li.appendChild(createParagraph(transaction.type));
 
         if (transaction.description) {
-            const description = document.createElement('p');
-            description.innerHTML = transaction.description;
-            li.appendChild(description);
+            li.appendChild(createParagraph(transaction.description));
         }
 
         orderedList.appendChild(li);
     });
+}
+
+function createTransactionListItem(transaction) {
+    const li = document.createElement('li');
+    // adding type (if it's income or expense)
+    li.classList.add(transaction.type);
+    li.id = transaction.uid;
+
+    return li;
+}
+
+function createEditButton(transaction) {
+    // Create edit button
+    const editButton = document.createElement('button');
+    editButton.innerHTML = '<i class="fas fa-pencil"></i>';
+    editButton.classList.add('edit-button');
+    editButton.addEventListener('click', () => {
+        window.location.href = "../transaction/transaction.html?uid=" + transaction.uid;
+    })
+
+    return editButton;
+}
+
+function createDeleteButton(transaction) {
+    // create delete button
+    const deleteButton = document.createElement('button');
+    deleteButton.innerHTML = '<i class="fas fa-trash"></i>'
+    deleteButton.classList.add('delete-button');
+    deleteButton.addEventListener('click', () => {
+        askRemoveTransaction(transaction);
+    })
+
+    return deleteButton;
+}
+
+function createParagraph(value) {
+    const element = document.createElement('p');
+    element.innerHTML = value;
+
+    return element;
+}
+
+function askRemoveTransaction(transaction) {
+    const shouldRemove = confirm('Would you like to DELETE this transaction?');
+    if (shouldRemove) {
+        removeTransaction(transaction);
+    }
+}
+
+function removeTransaction(transaction) {
+    showLoading();
+
+    transactionService.remove(transaction)
+        .then(() => {
+            hideLoading();
+            document.getElementById(transaction.uid).remove();
+        })
 }
 
 function formatDate(date) {

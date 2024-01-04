@@ -9,6 +9,8 @@ function logout() {
 
 firebase.auth().onAuthStateChanged(user => {
     if (user){
+        // getting the user's jwt (to get info of the user)
+        user.getIdToken().then(token => console.log(token));
         findTransactions(user);      
     }
 })
